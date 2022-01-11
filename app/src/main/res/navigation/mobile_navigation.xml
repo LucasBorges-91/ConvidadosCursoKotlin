@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_all"
-        android:name="br.com.borges.lucas.convidados.ui.home.AllGuestsFragment"
+        android:name="br.com.borges.lucas.convidados.view.AllGuestsFragment"
         android:label="@string/menu_all_guests"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_presents"
-        android:name="br.com.borges.lucas.convidados.ui.gallery.PresentFragment"
+        android:name="br.com.borges.lucas.convidados.view.PresentFragment"
         android:label="@string/menu_presents"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_absents"
-        android:name="br.com.borges.lucas.convidados.ui.slideshow.AbsentFragment"
+        android:name="br.com.borges.lucas.convidados.view.AbsentFragment"
         android:label="@string/menu_absents"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>
