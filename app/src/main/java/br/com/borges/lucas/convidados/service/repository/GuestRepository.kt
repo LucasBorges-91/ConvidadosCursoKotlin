@@ -1,7 +1,10 @@
 package br.com.borges.lucas.convidados.service.repository
 
+import android.content.ContentValues
 import android.content.Context
+import br.com.borges.lucas.convidados.service.constants.DataBaseConstants
 import br.com.borges.lucas.convidados.service.model.GuestModel
+import java.lang.Exception
 
 class GuestRepository private constructor( context: Context ) {
 
@@ -36,8 +39,18 @@ class GuestRepository private constructor( context: Context ) {
     return list
   }
 
-  fun save( guest: GuestModel) {
-    
+  fun save( guest: GuestModel): Boolean {
+    return try {
+      val db = mGuestDataBaseHelper.writableDatabase
+      val contentValues = ContentValues()
+      contentValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guest.name )
+      contentValues.put(DataBaseConstants.GUEST.COLUMNS.PRESENCE, guest.presence )
+      db.insert( DataBaseConstants.GUEST.TABLE_NAME, null, contentValues )
+      true
+    } catch ( exp: Exception ) {
+      false
+    }
+
   }
 
   fun update( guest: GuestModel) {
