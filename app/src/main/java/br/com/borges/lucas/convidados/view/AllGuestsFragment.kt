@@ -1,5 +1,6 @@
 package br.com.borges.lucas.convidados.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +10,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.borges.lucas.convidados.databinding.FragmentAllBinding
+import br.com.borges.lucas.convidados.service.constants.GuestConstants
 import br.com.borges.lucas.convidados.view.adapter.GuestAdapter
+import br.com.borges.lucas.convidados.view.listener.GuestListener
 import br.com.borges.lucas.convidados.viewmodel.AllGuestsViewModel
 
 class AllGuestsFragment : Fragment() {
 
   private lateinit var allGuestsViewModel: AllGuestsViewModel
   private val mAdapter: GuestAdapter = GuestAdapter()
+  private lateinit var mListener: GuestListener
   private var _binding: FragmentAllBinding? = null
 
   // This property is only valid between onCreateView and
@@ -41,6 +45,21 @@ class AllGuestsFragment : Fragment() {
     recycler.layoutManager = LinearLayoutManager( context )
     // 3 - Definir um adapter (cola entre elemento do banco e adapter)
     recycler.adapter = mAdapter
+
+
+    mListener = object : GuestListener{
+      override fun onClick(id: Int) {
+        val intent = Intent( context, GuestFormActivity::class.java )
+
+        val bundle = Bundle()
+        bundle.putInt( GuestConstants.GUESTID, id )
+
+        intent.putExtras( bundle )
+        startActivity( intent )
+      }
+    }
+
+    mAdapter.attachListener( mListener )
 
     observer()
 

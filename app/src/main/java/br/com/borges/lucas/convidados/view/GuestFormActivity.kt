@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import br.com.borges.lucas.convidados.viewmodel.GuestFormViewModel
 import br.com.borges.lucas.convidados.databinding.ActivityGuestFormBinding
+import br.com.borges.lucas.convidados.service.constants.GuestConstants
 
 class GuestFormActivity : AppCompatActivity() {
   private lateinit var binding: ActivityGuestFormBinding
@@ -21,6 +22,15 @@ class GuestFormActivity : AppCompatActivity() {
 
     setListeners()
     observe()
+    loadData()
+  }
+
+  private fun loadData() {
+    val bundle = intent.extras
+    if ( bundle != null ) {
+      val id = bundle.getInt( GuestConstants.GUESTID )
+      mViewModel.load( id )
+    }
   }
 
   private fun setListeners() {
@@ -40,6 +50,15 @@ class GuestFormActivity : AppCompatActivity() {
         Toast.makeText( applicationContext, "Falha", Toast.LENGTH_SHORT ).show()
       }
       finish()
+    })
+
+    mViewModel.guest.observe( this, Observer {
+      binding.editTextName.setText( it.name )
+      if ( it.presence ) {
+        binding.radioPresence.isChecked = true
+      } else {
+        binding.radioAbsente.isChecked = true
+      }
     })
   }
 }
