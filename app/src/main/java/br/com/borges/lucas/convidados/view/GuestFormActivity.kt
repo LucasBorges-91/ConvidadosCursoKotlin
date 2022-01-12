@@ -24,9 +24,10 @@ class GuestFormActivity : AppCompatActivity() {
   }
 
   private fun setListeners() {
-    val name = binding.editTextName.text.toString()
-    val presence = binding.radioPresence.isChecked
     binding.buttonSave.setOnClickListener {
+      val name = binding.editTextName.text.toString()
+      val presence = binding.radioPresence.isChecked
+      Toast.makeText( applicationContext, "$name", Toast.LENGTH_SHORT ).show()
       mViewModel.save( name, presence )
     }
   }
