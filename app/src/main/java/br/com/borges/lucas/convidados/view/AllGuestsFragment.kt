@@ -57,6 +57,11 @@ class AllGuestsFragment : Fragment() {
         intent.putExtras( bundle )
         startActivity( intent )
       }
+
+      override fun onDelete(id: Int) {
+        allGuestsViewModel.delete( id )
+        allGuestsViewModel.load()
+      }
     }
 
     mAdapter.attachListener( mListener )
