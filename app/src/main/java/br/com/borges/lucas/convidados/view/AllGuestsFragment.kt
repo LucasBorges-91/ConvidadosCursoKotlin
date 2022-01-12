@@ -43,8 +43,13 @@ class AllGuestsFragment : Fragment() {
     recycler.adapter = mAdapter
 
     observer()
-    allGuestsViewModel.load()
+
     return root
+  }
+
+  override fun onResume() {
+    super.onResume()
+    allGuestsViewModel.load()
   }
 
   override fun onDestroyView() {
